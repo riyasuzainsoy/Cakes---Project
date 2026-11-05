@@ -37,8 +37,12 @@ class CakeSerializer(serializers.ModelSerializer):
     category = CategoryField(queryset=Category.objects.all())
     shape = ShapeField(queryset=Shape.objects.all())
     weight = WeightField(queryset=Weight.objects.all())
-    # shape = ShapeSerializer()
-    # weight = WeightSerializer()
+    status = serializers.SerializerMethodField()
+    def get_status(self,obj):
+        if obj.price<1000:
+            return'max saver'
+        return None
+
     class Meta:
         model =Cake
         fields = '__all__'
